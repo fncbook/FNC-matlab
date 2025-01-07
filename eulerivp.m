@@ -22,5 +22,5 @@ u(:, 1) = u0;
 
 % Time stepping.
 for i = 1:n
-  u(:, i+1) = u(:, i) + h * du_dt(t(i), u(i), p);
+  u(:, i+1) = u(:, i) + h * du_dt(t(i), u(:, i), p);
 end

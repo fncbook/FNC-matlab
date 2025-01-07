@@ -6,14 +6,18 @@ function p = plinterp(t,y)
 % Output:
 %   p     piecewise linear interpolant (function)
 
-n = length(t)-1;
+n = length(t) - 1;
+H = {};
+for k = 0:n
+    H{k+1} = hatfun(t, k);
+end
 p = @evaluate;
 
     % This function evaluates p when called.
     function f = evaluate(x)
         f = 0;
         for k = 0:n
-            f = f + y(k+1)*hatfun(x,t,k);
+            f = f + y(k+1) * H{k+1}(x);
         end
     end
 

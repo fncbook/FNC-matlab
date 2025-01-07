@@ -15,7 +15,7 @@ g = @(t) f(xi(t)) .* dxi_dt(t);
 M = 3;
 while abs(g(M)) > tol/100
     M = M + 0.5;
-    if iszero(x(M)) 
+    if xi(M) == 0
         warning("Function may grow too rapidly.")
         M = M - 0.5;
         break

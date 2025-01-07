@@ -1,21 +1,23 @@
-function H = hatfun(x,t,k)
+function H = hatfun(t, k)
 % HATFUN   Hat function/piecewise linear basis function.
 % Input: 
-%   x      evaluation points (vector)
 %   t      interpolation nodes (vector, length n+1)
 %   k      node index (integer, in 0,...,n)
 % Output:
-%   H      values of the kth hat function
+%   H      kth hat function (function)
 
-n = length(t)-1;
-k = k+1;  % adjust for starting with index=1
+n = length(t) - 1;
 
-% Fictitious nodes to deal with first, last funcs.
-t = [ 2*t(1)-t(2); t(:); 2*t(n+1)-t(n) ];
-k = k+1;  % adjust index for the fictitious first node
+function y = evaluate(x)
+    y = zeros(size(x));
+    for i = 1:numel(x)
+        if (k > 0) && (t(k) <= x(i)) && (x(i) <= t(k+1))
+            y(i) = (x(i) - t(k)) / (t(k+1) - t(k));
+        elseif (k < n) && (t(k+1) <= x(i)) && (x(i) <= t(k+2))
+            y(i) = (t(k+2) - x(i)) / (t(k+2) - t(k+1));
+        end
+    end
+end
 
-H1 = (x-t(k-1))/(t(k)-t(k-1));   % upward slope
-H2 = (t(k+1)-x)/(t(k+1)-t(k));   % downward slope
-
-H = min(H1,H2);
-H = max(0,H);
+H = @evaluate;
+end

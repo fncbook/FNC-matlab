@@ -16,7 +16,7 @@ p = ivp.Parameters;
 t = a;
 u(:, 1) = u0(:);  i = 1;
 h = 0.5 * tol^(1/3);
-s1 = du_dt(t(1), u(:, 1));
+s1 = du_dt(t(1), u(:, 1) ,p);
 
 % Time stepping.
 while t(i) < b
