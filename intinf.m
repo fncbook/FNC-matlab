@@ -15,7 +15,7 @@ g = @(t) f(xi(t)) .* dxi_dt(t);
 M = 3;
 while (abs(g(-M)) > tol/100) || (abs(g(M)) > tol/100)
     M = M + 0.5;
-    if isinf(x(M)) 
+    if isinf(xi(M)) 
         warning("Function may not decay fast enough.")
         M = M - 0.5;
         break
