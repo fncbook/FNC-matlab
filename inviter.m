@@ -1,4 +1,4 @@
-function [beta,x] = inviter(A,s,numiter)
+function [beta, x] = inviter(A, s, numiter)
 % INVITER   Shifted inverse iteration for the closest eigenvalue.
 % Input:
 %   A         square matrix
