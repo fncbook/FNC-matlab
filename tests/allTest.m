@@ -112,41 +112,36 @@ end
 function chapter6test(testCase)
     f = @(t, u, p) u + p*t^2;
     u_ex = exp(1.5) - 2*(-2 + 2*exp(1.5) - 2*1.5 - 1.5^2);
-    ivp = ode(ODEFcn=f);
-    ivp.InitialValue = 1;
-    ivp.Parameters = -2;
-    sol = solve(ivp, 0, 1.5);
-    [t, u] = eulerivp(ivp, 0, 1.5, 5000);
-    assertTrue(testCase, isapprox(u(end), sol.Solution(end), 5e-3))
+    odefun = @(t, u) f(t, u, -2);
+    %[t, u] = ode45(odefun, [0, 1.5], 1);
+    [t, u] = eulerivp(odefun, [0, 1.5], 1, 5000);
+    assertTrue(testCase, isapprox(u(end), u_ex, 5e-3))
     
-    [t, u] = am2(ivp, 0, 1.5, 4000);
-    assertTrue(testCase, isapprox(u(end), sol.Solution(end), 1e-4))
+    [t, u] = am2(odefun, [0, 1.5], 1, 4000);
+    assertTrue(testCase, isapprox(u(end), u_ex, 1e-4))
     
-    ivp = ode(ODEFcn=@(t, u, p) [t+p-sin(u(2)); u(1)]);
-    ivp.InitialValue = [-1; 4];
-    ivp.Parameters = -6;
-    ivp.InitialTime = 1;
-    ivp.RelativeTolerance = 1e-7;
-    ivp.AbsoluteTolerance = 1e-7;
-    sol = solve(ivp, 1, 2);
+    odefun = @(t, u) [t-6-sin(u(2)); u(1)];
+    u0 = [-1; 4];
+    opt = odeset('abstol', 1e-7, 'RelTol', 1e-7);
+    [t_ex, u_ex] = ode113(odefun, [1, 2], u0, opt);
     
-    [t, u] = eulerivp(ivp, 1, 2, 5000);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 5e-3))
+    [t, u] = eulersys(odefun, [1, 2], u0, 5000);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 5e-3))
     
-    [t, u] = ie2(ivp, 1, 2, 2000);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 1e-4))
+    [t, u] = ie2(odefun, [1, 2], u0, 2000);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 1e-4))
     
-    [t, u] = rk4(ivp, 1, 2, 1000);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 1e-6))
+    [t, u] = rk4(odefun, [1, 2], u0, 1000);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 1e-6))
     
-    [t, u] = ab4(ivp, 1, 2, 1000);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 1e-6))
+    [t, u] = ab4(odefun, [1, 2], u0, 1000);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 1e-6))
     
-    [t, u] = rk23(ivp, 1, 2, 1e-5);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 2e-5))
+    [t, u] = rk23(odefun, [1, 2], u0, 1e-5);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 2e-5))
     
-    [t, u] = am2(ivp, 1, 2, 2000);
-    assertTrue(testCase, isapprox(u(:,end), sol.Solution(:,end), 1e-4))
+    [t, u] = am2(odefun, [1, 2], u0, 2000);
+    assertTrue(testCase, isapprox(u(end, :), u_ex(end, :), 1e-4))
 end
 
 function chapter8test(testCase)
@@ -208,7 +203,7 @@ function chapter10test(testCase)
 	ga = @(u,du) du;    
 	gb = @(u,du) u-1;  
 
-	[r,w,dwdx] = shoot(phi,a,b,ga,gb,[0.8;0], 1e-6);
+	[r, w, dwdx] = shoot(phi, a, b, ga, gb, [0.8; 0], 1e-6);
 	assertTrue(testCase, isapprox(w(1), 0.78776, 1e-4))
 
 	f = @(x) exp(x.^2-3*x);

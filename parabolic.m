@@ -25,17 +25,13 @@ function [x, u] = parabolic(phi, xspan, m, ga, gb, tspan, init)
         u = [ubc(1); v; ubc(2)];
     end
 
-    function f = mol_ode(t, v, p)
+    function f = mol_ode(t, v)
         u = extend(v);
         ux = Dx * u;
         uxx = Dxx * u;
         f = phi(t, x(int), u(int), ux(int), uxx(int));
     end
 
-    ivp = ode(ODEFcn=@mol_ode);
-    ivp.InitialTime = tspan(1);
-    ivp.InitialValue = init(x(int));
-    ivp.Solver = "stiff";
-    sol = solutionFcn(ivp, tspan(1), tspan(2));
-    u = @(t) extend(sol(t));
+    sol = ode15s(@mol_ode, tspan, init(x(int)));
+    u = @(t) extend(deval(sol, t));
 end

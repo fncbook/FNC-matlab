@@ -17,17 +17,12 @@ function f = shootivp(x, y)
   f = [ y(2); phi(x, y(1), y(2)) ];
 end
 
-ivp = ode(ODEFcn=@shootivp);
-ivp.InitialTime = a;
-ivp.AbsoluteTolerance = tol / 10;
-ivp.RelativeTolerance = tol / 10;
-
 % To be solved by levenberg
 function residual = objective(s)
-  ivp.InitialValue = s;
-  sol = solve(ivp, a, b);
-  x = sol.Time;  y = sol.Solution;
-  residual = [ga(y(1, 1), y(2, 1)); gb(y(1, end), y(2, end))];
+  [x, y] = rk23(@shootivp, [a, b], s, tol / 10);
+  ya = y(1, :);
+  yb = y(end, :);
+  residual = [ga(ya(1), ya(2)); gb(yb(1), yb(2))];
 end
 
 y = [];    % shared variable
@@ -35,7 +30,7 @@ s = levenberg(@objective, init, tol);
 
 % Don't need to solve the IVP again. It was done within the
 % objective function already.
-u = y(1, :);            % solution     
-du_dx = y(2, :);         % derivative
+u = y(:, 1);            % solution     
+du_dx = y(:, 2);        % derivative
 
 end
