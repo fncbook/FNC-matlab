@@ -1,7 +1,7 @@
 function u = elliptic(phi, g, m, xspan, n, yspan)
 %ELLIPTIC   Solve an elliptic PDE in 2d.
 % Input:
-%   phi          defines phi)(x,y,u,u_x,u_xx,u_y,u_yy) = 0 (function)
+%   phi          defines phi(x, y, u, u_x, u_xx, u_y, u_yy) = 0 (function)
 %   g            boundary condition (function)
 %   m, xspan     size and interval of x discretization (integer, 2-vector)
 %   n, yspan     size and interval of y discretization (integer, 2-vector)

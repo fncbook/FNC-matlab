@@ -7,12 +7,14 @@ function [beta, x] = poweriter(A, numiter)
 %   beta      sequence of eigenvalue approximations (vector)
 %   x         final eigenvector approximation
 
-n = length(A);
-x = randn(n, 1);
-x = x / norm(x, inf);
-for k = 1:numiter
-    y = A*x;
-    [normy, m] = max(abs(y));
-    beta(k) = y(m) / x(m);
-    x = y / y(m);
-end 
+    n = length(A);
+    x = randn(n, 1);
+    x = x / norm(x, inf);
+    beta = zeros(numiter, 1);
+    for k = 1:numiter
+        y = A*x;
+        [~, m] = max(abs(y));
+        beta(k) = y(m) / x(m);
+        x = y / y(m);
+    end
+end

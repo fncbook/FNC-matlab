@@ -6,20 +6,20 @@ function p = polyinterp(t, y)
 % Output:
 %   p   polynomial interpolant (function)
 
-t = t(:);                    % column vector
-n = length(t) - 1;
-C = (t(end) - t(1)) / 4;       % scaling factor to ensure stability
-tc = t / C;
+    t = t(:);                    % column vector
+    n = length(t) - 1;
+    C = (t(end) - t(1)) / 4;       % scaling factor to ensure stability
+    tc = t / C;
 
-% Adding one node at a time, compute inverses of the weights.
-omega = ones(n+1, 1);
-for m = 1:n
-    d = (tc(1:m) - tc(m+1));      % vector of node differences
-    omega(1:m) = omega(1:m) .* d; % update previous 
-    omega(m+1) = prod(-d);        % compute the new one
-end
-w = 1./omega;                     % go from inverses to weights
-p = @evaluate;
+    % Adding one node at a time, compute inverses of the weights.
+    omega = ones(n+1, 1);
+    for m = 1:n
+        d = (tc(1:m) - tc(m+1));      % vector of node differences
+        omega(1:m) = omega(1:m) .* d; % update previous 
+        omega(m+1) = prod(-d);        % compute the new one
+    end
+    w = 1 ./ omega;                   % go from inverses to weights
+    p = @evaluate;
 
     function f = evaluate(x)
         % % Compute interpolant, one value of x at a time.
@@ -30,10 +30,9 @@ p = @evaluate;
         end
         
         % Apply L'Hopital's Rule exactly.
-        for j = find( isnan(f(:)) )'           % where divided by zero
-            [~, idx] = min( abs(x(j) - t) );   % node closest to x(j)
+        for j = find(isnan(f(:)))'             % where divided by zero
+            [~, idx] = min(abs(x(j) - t));     % node closest to x(j)
             f(j) = y(idx);                     % value at node
         end        
     end    % evaluate function
-
-end    % polyinterp function
+end    % main function

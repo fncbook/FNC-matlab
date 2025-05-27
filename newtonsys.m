@@ -6,22 +6,25 @@ function x = newtonsys(f,x1)
 % Output       
 %   x        array of approximations (one per column, last is best)
 
-% Operating parameters.
-funtol = 1000*eps;  xtol = 1000*eps;  maxiter = 40;
+    % Stopping parameters.
+    funtol = 1000 * eps;    % stop for small || f(x) ||
+    xtol = 1000 * eps;      % stop for small || x change ||
+    maxiter = 40;           % stop after this many iterations
 
-x = x1(:);  
-[y,J] = f(x1);
-dx = Inf;
-k = 1;
+    x = x1(:);  
+    [y, J] = f(x1);
+    dx = Inf;
+    k = 1;
 
-while (norm(dx) > xtol) && (norm(y) > funtol) && (k < maxiter)
-    dx = -(J\y);   % Newton step
-    x(:,k+1) = x(:,k) + dx;
+    while (norm(dx) > xtol) && (norm(y) > funtol) && (k < maxiter)
+        dx = -(J \ y);    % Newton step
+        x(:, k+1) = x(:, k) + dx;
 
-    k = k+1;
-    [y,J] = f(x(:,k));
-end
+        k = k+1;
+        [y, J] = f(x(:, k));
+    end
 
-if k==maxiter
-    warning('Maximum number of iterations reached.')
+    if k==maxiter
+        warning('Maximum number of iterations reached.')
+    end
 end

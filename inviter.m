@@ -8,14 +8,15 @@ function [beta, x] = inviter(A, s, numiter)
 %   beta      sequence of eigenvalue approximations (vector)
 %   x         final eigenvector approximation
 
-n = length(A);
-x = randn(n, 1);
-x = x / norm(x, inf);
-B = A - s*eye(n);
-[L,U] = lu(B);
-for k = 1:numiter
-    y = U \ (L\x);
-    [normy, m] = max(abs(y));
-    beta(k) = (x(m) / y(m)) + s;
-    x = y / y(m);
-end 
+    n = length(A);
+    x = randn(n, 1);
+    x = x / norm(x, inf);
+    B = A - s * eye(n);
+    [L,U] = lu(B);
+    for k = 1:numiter
+        y = U \ (L \ x);
+        [normy, m] = max(abs(y));
+        beta(k) = (x(m) / y(m)) + s;
+        x = y / y(m);
+    end
+end
