@@ -9,12 +9,11 @@ function [beta, x] = poweriter(A, numiter)
 
     n = length(A);
     x = randn(n, 1);
-    x = x / norm(x, inf);
+    x = x / norm(x);
     beta = zeros(numiter, 1);
     for k = 1:numiter
-        y = A*x;
-        [~, m] = max(abs(y));
-        beta(k) = y(m) / x(m);
-        x = y / y(m);
+        y = A * x;
+        beta(k) = x' * y;
+        x = y / norm(y);
     end
 end

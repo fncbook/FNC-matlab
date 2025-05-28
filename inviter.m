@@ -12,11 +12,11 @@ function [beta, x] = inviter(A, s, numiter)
     x = randn(n, 1);
     x = x / norm(x, inf);
     B = A - s * eye(n);
-    [L,U] = lu(B);
+    [L, U] = lu(B);
+    beta = zeros(numiter, 1);
     for k = 1:numiter
         y = U \ (L \ x);
-        [normy, m] = max(abs(y));
-        beta(k) = (x(m) / y(m)) + s;
-        x = y / y(m);
+        beta(k) = (1 / dot(x, y)) + s;
+        x = y / norm(y);
     end
 end
