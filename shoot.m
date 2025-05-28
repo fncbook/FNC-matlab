@@ -19,7 +19,8 @@ function [x, u, du_dx] = shoot(phi, a, b, ga, gb, init, tol)
 
     % To be solved by levenberg
     function residual = objective(s)
-      [x, y] = rk23(@shootivp, [a, b], s, tol / 10);
+      opt = odeset('RelTol', tol / 10, 'AbsTol', tol / 10);
+      [x, y] = ode113(@shootivp, [a, b], s, tol / 10);
       ya = y(1, :);
       yb = y(end, :);
       residual = [ga(ya(1), ya(2)); gb(yb(1), yb(2))];
