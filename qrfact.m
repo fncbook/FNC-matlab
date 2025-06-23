@@ -16,10 +16,10 @@ function [Q,R] = qrfact(A)
       v = w / nrmw;                   % removes v'*v in other formulas
       % Apply the reflection to each relevant column of A and Q
       for j = 1:n
-        A(k:m, j) = A(k:m, j) - 2 * v * (v' * A(k:m, j));
+        A(k:m, j) = A(k:m, j) - v * (2 * (v' * A(k:m, j)));
       end
       for j = 1:m
-        Q(k:m, j) = Q(k:m, j) - 2 * v * (v' * Q(k:m, j));
+        Q(k:m, j) = Q(k:m, j) - v * (2 * (v' * Q(k:m, j)));
       end
     end
 
