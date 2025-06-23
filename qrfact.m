@@ -10,10 +10,10 @@ function [Q,R] = qrfact(A)
     Q = eye(m);
     for k = 1:n
       z = A(k:m, k);
-      v = [ -sign(z(1)) * norm(z) - z(1); -z(2:end) ];
-      nrmv = norm(v);
-      if nrmv < eps, continue, end    % nothing is done in this iteration
-      v = v / nrmv;                   % removes v'*v in other formulas
+      w = [ -sign(z(1)) * norm(z) - z(1); -z(2:end) ];
+      nrmw = norm(w);
+      if nrmw < eps, continue, end    % nothing is done in this iteration
+      v = w / nrmw;                   % removes v'*v in other formulas
       % Apply the reflection to each relevant column of A and Q
       for j = 1:n
         A(k:m, j) = A(k:m, j) - 2 * v * (v' * A(k:m, j));
