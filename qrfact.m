@@ -7,7 +7,7 @@ function [Q,R] = qrfact(A)
 %   Q, R   Q m-by-m orthogonal, R m-by-n upper triangular such that A = QR
 
     [m, n] = size(A);
-    Q = eye(m);
+    Qt = eye(m);
     for k = 1:n
       z = A(k:m, k);
       w = [ -sign(z(1)) * norm(z) - z(1); -z(2:end) ];
@@ -19,10 +19,10 @@ function [Q,R] = qrfact(A)
         A(k:m, j) = A(k:m, j) - v * (2 * (v' * A(k:m, j)));
       end
       for j = 1:m
-        Q(k:m, j) = Q(k:m, j) - v * (2 * (v' * Q(k:m, j)));
+        Qt(k:m, j) = Qt(k:m, j) - v * (2 * (v' * Qt(k:m, j)));
       end
     end
 
-    Q = Q';
+    Q = Qt';
     R = triu(A);    % enforce exact triangularity 
 end
