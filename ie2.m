@@ -1,13 +1,13 @@
 function [t, u] = ie2(du_dt, tspan, u0, n)
-% IE2    Improved Euler method for an IVP.
-% Input:
-%   du_dt   defines f in u'(t) = f(t, u) 
-%   tspan   endpoints of time interval (2-vector)
-%   u0      initial value (m-vector)
-%   n       number of time steps (integer)
-% Output:
-%   t       selected nodes (vector, length n+1)
-%   u       solution values (array, n+1 by m)
+    % IE2    Improved Euler method for an IVP.
+    % Input:
+    %   du_dt   defines f in u'(t) = f(t, u) 
+    %   tspan   endpoints of time interval (2-vector)
+    %   u0      initial value (m-vector)
+    %   n       number of time steps (integer)
+    % Output:
+    %   t       selected nodes (vector, length n+1)
+    %   u       solution values (array, n+1 by m)
 
     % Define the time discretization.
     a = tspan(1);  b = tspan(2);

@@ -1,10 +1,10 @@
 function H = hatfun(t, k)
-% HATFUN   Hat function/piecewise linear basis function.
-% Input: 
-%   t      interpolation nodes (vector, length n+1)
-%   k      node index (integer, in 0,...,n)
-% Output:
-%   H      kth hat function (function)
+    % HATFUN   Hat function/piecewise linear basis function.
+    % Input: 
+    %   t      interpolation nodes (vector, length n+1)
+    %   k      node index (integer, in 0,...,n)
+    % Output:
+    %   H      kth hat function (function)
 
     n = length(t) - 1;
     H = @evaluate;

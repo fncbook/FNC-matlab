@@ -1,16 +1,15 @@
-  function [x,u] = bvp(phi, a, b, ga, gb, init)
-%BVP      Solve a boundary-value problem by finite differences
-%         with either Dirichlet or Neumann BCs.
-% Input:
-%   phi      defines u'' = phi(x, u, u') (function)
-%   a, b     endpoints of the domain (scalars)
-%   ga       residual boundary function of u(a), u'(a) 
-%   gb       residual boundary function of u(b), u'(b) 
-%   init     initial guess for the solution (length n+1 vector)
-% Output:
-%   x        nodes in x (vector, length n+1)
-%   u        values of u(x)  (vector, length n+1)
-%   res      function for computing the residual
+function [x,u] = bvp(phi, a, b, ga, gb, init)
+    %BVP      Solve a boundary-value problem by finite differences
+    % Input:
+    %   phi      defines u'' = phi(x, u, u') (function)
+    %   a, b     endpoints of the domain (scalars)
+    %   ga       residual boundary function of u(a), u'(a) 
+    %   gb       residual boundary function of u(b), u'(b) 
+    %   init     initial guess for the solution (length n+1 vector)
+    % Output:
+    %   x        nodes in x (vector, length n+1)
+    %   u        values of u(x)  (vector, length n+1)
+    %   res      function for computing the residual
 
     n = length(init) - 1;
     [x, Dx, Dxx] = diffmat2(n, [a, b]);

@@ -1,18 +1,20 @@
 function u = elliptic(phi, g, m, xspan, n, yspan)
-%ELLIPTIC   Solve an elliptic PDE in 2d.
-% Input:
-%   phi          defines phi(x, y, u, u_x, u_xx, u_y, u_yy) = 0 (function)
-%   g            boundary condition (function)
-%   m, xspan     size and interval of x discretization (integer, 2-vector)
-%   n, yspan     size and interval of y discretization (integer, 2-vector)
-% Output:
-%   U            solution (n+1 by n+1)
-%   X,Y          coordinate matrices (n+1 by n+1)
+    %ELLIPTIC   Solve an elliptic PDE in 2d.
+    % Input:
+    %   phi          defines phi(x, y, u, u_x, u_xx, u_y, u_yy) = 0 (function)
+    %   g            boundary condition (function)
+    %   m            size of x discretization (integer)
+    %   xspan        interval of x discretization (2-vector)
+    %   n            size of y discretization (integer)
+    %   yspan        interval of y discretization (2-vector)
+    % Output:
+    %   U            solution (n+1 by n+1)
+    %   X,Y          coordinate matrices (n+1 by n+1)
 
     % Discretize the domain.
     [x, Dx, Dxx] = diffcheb(m, xspan);
     [y, Dy, Dyy] = diffcheb(n, yspan);
-    [mtx, X, Y, vec, unvec, is_boundary] = tensorgrid(x, y);
+    [~, X, Y, vec, unvec, is_boundary] = tensorgrid(x, y);
 
     % Identify boundary locations and evaluate the boundary condition.
     idx = vec(is_boundary);

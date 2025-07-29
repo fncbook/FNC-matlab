@@ -1,12 +1,12 @@
 function [x, Dx, Dxx] = diffper(n, xspan)
-%DIFFPER   Differentiation matrices for periodic end conditions. 
-% Input:
-%   n      number of subintervals (integer)
-%   xspan  endpoints of domain (vector)
-% Output:
-%   x    equispaced nodes (length n)
-%   Dx   matrix for first derivative (n by n)
-%   Dxx  matrix for second derivative (n by n)
+    %DIFFPER   Differentiation matrices for periodic end conditions. 
+    % Input:
+    %   n      number of subintervals (integer)
+    %   xspan  endpoints of domain (vector)
+    % Output:
+    %   x    equispaced nodes (length n)
+    %   Dx   matrix for first derivative (n by n)
+    %   Dxx  matrix for second derivative (n by n)
 
     a = xspan(1);  b = xspan(2);
     h = (b - a) / n;

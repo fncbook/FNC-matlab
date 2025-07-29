@@ -1,12 +1,12 @@
 function [x, u] = fem(c, s, f, a, b, n)
-%FEM     Piecewise linear finite elements for a linear BVP.
-% Input:
-%   c,s,f    coefficient functions of x describing the ODE (functions) 
-%   a,b      domain of the independent variable (scalars)
-%   n        number of grid subintervals (scalar) 
-% Output:
-%   x        grid points (vector, length n+1)
-%   u        solution values at x (vector, length n+1)
+    %FEM     Piecewise linear finite elements for a linear BVP.
+    % Input:
+    %   c,s,f    coefficient functions of x describing the ODE (functions) 
+    %   a,b      domain of the independent variable (scalars)
+    %   n        number of grid subintervals (scalar) 
+    % Output:
+    %   x        grid points (vector, length n+1)
+    %   u        solution values at x (vector, length n+1)
 
     % Define the grid.
     h = (b - a)/n;
@@ -31,9 +31,9 @@ function [x, u] = fem(c, s, f, a, b, n)
     M(n-1, n-1) = sbar(n) * h / 3;
     f(n-1)      = fbar(n) * h / 2;
     for k = 2:n-1
-      K(k-1:k, k-1:k) = K(k-1:k, k-1:k) + (cbar(k) / h) * Ke;
-      M(k-1:k, k-1:k) = M(k-1:k, k-1:k) + (sbar(k) * h) * Me;
-      f(k-1:k)        = f(k-1:k)        + (fbar(k) * h) * fe;
+        K(k-1:k, k-1:k) = K(k-1:k, k-1:k) + (cbar(k) / h) * Ke;
+        M(k-1:k, k-1:k) = M(k-1:k, k-1:k) + (sbar(k) * h) * Me;
+        f(k-1:k)        = f(k-1:k)        + (fbar(k) * h) * fe;
     end  
 
     % Solve system for the interior values.

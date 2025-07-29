@@ -1,12 +1,12 @@
 function [x, Dx, Dxx] = diffmat2(n, xspan)
-%DIFFMAT2   Second-order accurate differentiation matrices.
-% Input:
-%   n       number of subintervals (one less than the number of nodes)
-%   xspan   interval endpoints
-% Output:
-%   x       equispaced nodes
-%   Dx      matrix for first derivative
-%   Dxx     matrix for second derivative
+    %DIFFMAT2   Second-order accurate differentiation matrices.
+    % Input:
+    %   n       number of subintervals (one less than the number of nodes)
+    %   xspan   interval endpoints
+    % Output:
+    %   x       equispaced nodes
+    %   Dx      matrix for first derivative
+    %   Dxx     matrix for second derivative
 
     a = xspan(1);  b = xspan(2);
     h = (b - a) / n;

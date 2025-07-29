@@ -1,14 +1,14 @@
 function [x, u] = bvplin(p, q, r, a, b, ua, ub,n)
-% BVPLIN   Solve a linear boundary-value problem.
-% Input:
-%   p, q, r  define u'' + pu' + qu = r (functions)
-%   a, b     endpoints of the domain (scalars)
-%   ua       value of u(a)
-%   ub       value of u(b)
-%   n        number of subintervals (integer)
-% Output:
-%   x       collocation nodes (vector, length n+1)
-%   u       solution at nodes (vector, length n+1)
+    % BVPLIN   Solve a linear boundary-value problem.
+    % Input:
+    %   p, q, r  define u'' + pu' + qu = r (functions)
+    %   a, b     endpoints of the domain (scalars)
+    %   ua       value of u(a)
+    %   ub       value of u(b)
+    %   n        number of subintervals (integer)
+    % Output:
+    %   x       collocation nodes (vector, length n+1)
+    %   u       solution at nodes (vector, length n+1)
 
     [x, Dx, Dxx] = diffmat2(n, [a, b]);
 

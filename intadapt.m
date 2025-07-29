@@ -1,12 +1,12 @@
 function [Q,t] = intadapt(f,a,b,tol)
-%INTADAPT   Adaptive integration with error estimation.
-% Input:
-%   f     integrand (function)
-%   a,b   interval of integration (scalars)
-%   tol   acceptable error
-% Output:
-%   Q     approximation to integral(f, a, b)
-%   t     vector of nodes used
+    %INTADAPT   Adaptive integration with error estimation.
+    % Input:
+    %   f     integrand (function)
+    %   a,b   interval of integration (scalars)
+    %   tol   acceptable error
+    % Output:
+    %   Q     approximation to integral(f, a, b)
+    %   t     vector of nodes used
 
     m = (b + a) / 2;
     [Q, t] = do_integral(a, f(a), b, f(b), m, f(m), tol);

@@ -1,12 +1,12 @@
 function [x, Dx, Dxx] = diffcheb(n, xspan)
-%DIFFCHEB   Chebyshev differentiation matrices.
-% Input:
-%   n      number of subintervals (integer)
-%   xspan  interval endpoints (vector)
-% Output:
-%   x      Chebyshev nodes in domain (length n+1)
-%   Dx     matrix for first derivative (n+1 by n+1)
-%   Dxx    matrix for second derivative (n+1 by n+1)
+    %DIFFCHEB   Chebyshev differentiation matrices.
+    % Input:
+    %   n      number of subintervals (integer)
+    %   xspan  interval endpoints (vector)
+    % Output:
+    %   x      Chebyshev nodes in domain (length n+1)
+    %   Dx     matrix for first derivative (n+1 by n+1)
+    %   Dxx    matrix for second derivative (n+1 by n+1)
 
     x = -cos( (0:n)' * pi / n );    % nodes in [-1,1]
     Dx = zeros(n+1);
@@ -15,9 +15,9 @@ function [x, Dx, Dxx] = diffcheb(n, xspan)
 
     % Off-diagonal entries
     for j = 0:n
-      num = c(i+1) .* (-1).^(i + j);
-      den = c(j+1) * (x - x(j+1));
-      Dx(:, j+1) = num ./ den;
+        num = c(i+1) .* (-1).^(i + j);
+        den = c(j+1) * (x - x(j+1));
+        Dx(:, j+1) = num ./ den;
     end
 
     % Diagonal entries
