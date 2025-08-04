@@ -3,7 +3,6 @@
 These are the MATLAB versions of the functions used in the book [*Fundamentals of Numerical Computation*](https://fncbook.github.io/fnc) by Tobin A. Driscoll and Richard J. Braun. There have been some implementation changes since the print edition of the text.
 
 - `hatfun` now returns a callable function of $x$ rather than requiring the evaluation points at the time of construction.
-- The IVP solvers use MATLAB's [new IVP structure](https://www.mathworks.com/help/releases/R2024b/matlab/ref/ode.html) to set up the problem. This makes it potentially less confusing to pass parameters into the ODE function. (This change was reversed since v0.1.1 of the package.)
 - The boundary conditions of a BVP in Chapter 10 are specified a little differently.
 - There is a `tensorgrid` function that creates several values and functions useful to the discussion and algorithms of Chapter 13.
 - The `newtonpde` function has been replaced by a more general `elliptic` function to solve an elliptic PDE on a rectangular domain.
